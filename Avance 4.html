@@ -104,23 +104,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="análisis-exploratorio" class="level2">
-<h2 class="anchored" data-anchor-id="análisis-exploratorio">Análisis Exploratorio</h2>
+<section id="análisis-exploratorio" class="level1" style="text-align: center;">
+<h1>Análisis Exploratorio</h1>
+</section>
 <section id="objetivo-predicción-de-los-precios-de-venta-de-hogares-en-ames-iowa." class="level3">
 <h3 class="anchored" data-anchor-id="objetivo-predicción-de-los-precios-de-venta-de-hogares-en-ames-iowa.">1. Objetivo: Predicción de los precios de venta de hogares en Ames, Iowa.</h3>
-<p>El objetivo es desarrollar un modelo que prediga el precio de venta de una determinada casa en Ames, Iowa. Los interesados en el informe esperan conocer si el precio al que se ofrece una casa está por encima o por debajo de su valor real. Se espera que aquellas subvaluadas representen una oportunidad de inversión.</p>
+<p>El objetivo es desarrollar un modelo que prediga el precio de venta de una determinada casa en Ames, Iowa. Los interesados en el informe esperan conocer si el precio al que se ofrece una casa está por encima o por debajo de su valor real.</p>
+<p>El conjunto de datos contiene información de la Oficina del Asesor de Ames utilizada en el cálculo de los valores tasados de propiedades residenciales individuales vendidas en Ames, Iowa, desde 2006 hasta 2010.</p>
+<hr>
 </section>
 <section id="eda-análisis-exploratorio-de-datos." class="level3">
 <h3 class="anchored" data-anchor-id="eda-análisis-exploratorio-de-datos.">2. EDA: Análisis exploratorio de datos.</h3>
 <p>La base de datos que se requiere se encuentra contenida en el archivo ames.csv. En el archivo análisis_ames.py se desarrolla el modelo de predicción y en él mismo se plasma el código, en el presente documento se muestran los resultados.</p>
 <div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> <span class="op">*</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> <span class="op">*</span>  </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ames_housing <span class="op">=</span> pd.read_csv(<span class="st">"ames.csv"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>ames_housing.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ames_housing <span class="op">=</span> pd.read_csv(<span class="st">"ames.csv"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>ames_housing.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
 RangeIndex: 2930 entries, 0 to 2929
@@ -205,23 +207,117 @@ dtypes: float64(2), int64(32), object(40)
 memory usage: 1.7+ MB</code></pre>
 </div>
 </div>
-<p><code>#Con la informacion obteniva podemos oberservar que tenemos 74 columnas con 2,930 registros</code></p>
+<hr>
+</section>
+<section id="descripción-de-las-variables." class="level2">
+<h2 class="anchored" data-anchor-id="descripción-de-las-variables.">Descripción de las variables.</h2>
+<p>Con la información obtenida podemos observar:</p>
+<ul>
+<li><p><strong>Tamaño:</strong> La base de datos contiene 74 columnas con 2,930 registros</p></li>
+<li><p><strong>Columnas:</strong> En cuanto a las columnas cada columna tiene un nombre (enumerado del 0 al 73) y se muestra el nombre de la columna (por ejemplo, “MS_SubClass”, “MS_Zoning”) junto con el número de valores no nulos y el tipo de datos (por ejemplo, “object”, “int64”, “float64”).</p></li>
+<li><p><strong>Tipo de columnas:</strong> Las columnas contienen diferentes tipos de datos, como objetos, enteros y flotantes. Por ejemplo, “MS_SubClass” y “MS_Zoning” son columnas de tipo “object”, mientras que “Lot_Frontage” es una columna de tipo “int64”, y “Longitude” y “Latitude” son columnas de tipo “float64”.</p></li>
+<li><p><strong>Valores faltantes</strong>: Algunas columnas tienen valores faltantes, como “Mas_Vnr_Type” que tiene 1,155 valores y “Misc_Feature” que tiene solo 106 valores. El número de valores de estas columnas indica la cantidad de datos disponiblesen.</p></li>
+<li><p><strong>Variable</strong> <strong>objetivo</strong>: La última columna, “<strong>Sale_Price</strong>”, parece ser la variable objetivo del conjunto de datos, ya que es de tipo “int64” y puede representar los precios de venta de las viviendas.</p></li>
+</ul>
 <div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ames_housing <span class="op">&gt;&gt;</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a> select(_.Year_Sold, _.Year_Remod_Add) <span class="op">&gt;&gt;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a> mutate(Antique <span class="op">=</span> _.Year_Sold <span class="op">-</span> _.Year_Remod_Add) <span class="op">&gt;&gt;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a> summarize(</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  Mean_Antique <span class="op">=</span> _.Antique.mean(),</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  Median_Antique <span class="op">=</span> _.Antique.median(),</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  First_Antique <span class="op">=</span> _.Antique.iloc[<span class="dv">0</span>],</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  Last_Antique <span class="op">=</span> _.Antique.iloc[<span class="op">-</span><span class="dv">1</span>],</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  Min_Antique <span class="op">=</span> _.Antique.<span class="bu">min</span>(),</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  Max_Antique <span class="op">=</span> _.Antique.<span class="bu">max</span>(),</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<p><img src="Avance%204_files/figure-html/cell-3-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="62">
+<pre><code>&lt;Figure Size: (640 x 480)&gt;</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="63">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Mean_Sale_Price</th>
+<th data-quarto-table-cell-role="th">Median_Sale_Price</th>
+<th data-quarto-table-cell-role="th">Min_Sale_Price</th>
+<th data-quarto-table-cell-role="th">Max_Sale_Price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>180796.1</td>
+<td>160000.0</td>
+<td>12789</td>
+<td>755000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><em>La variable “Sale_Price” tiene un rango que va desde 12,789 hasta 755,000, con un valor medio de alrededor de 180,796.1 y una mediana de 160,000.0. Estos datos estadísticos resumen la distribución de los precios de venta en el conjunto de datos, lo que proporciona información importante sobre la variabilidad de los precios de las viviendas.</em></p>
+<hr>
+</section>
+<section id="selección-de-variables" class="level2">
+<h2 class="anchored" data-anchor-id="selección-de-variables">Selección de Variables</h2>
+<p>Basado en la información proporcionada en la estructura de datos y tipos de variables en el conjunto de datos, es posible identificar varias variables que podrían ser relevantes para predecir el precio de una vivienda en Ames,Iowa.</p>
+<ol type="1">
+<li><p>Superficie del terreno (<strong>Lot_Area</strong>): El tamaño del terreno en el que se encuentra la vivienda ya que puede influir en su precio.</p></li>
+<li><p>Año de construcción (<strong>Year_Built</strong>): La antigüedad de la vivienda es un factor importante en la determinación del precio.</p></li>
+<li><p>Área habitable (<strong>Gr_Liv_Area</strong>): El espacio habitable de la vivienda suele estar correlacionado con el precio.</p></li>
+<li><p>Número de habitaciones (<strong>TotRms_AbvGrd</strong>): El número de habitaciones y su distribución pueden ser indicativos del tamaño y la comodidad de la vivienda.</p></li>
+<li><p>Número de baños (<strong>Full_Bath y Half_Bath</strong>): La cantidad de baños también es un factor clave en la valoración de una vivienda.</p></li>
+<li><p>Número de garajes (<strong>Garage_Cars</strong>): La capacidad de estacionamiento.</p></li>
+<li><p>Ubicación (<strong>Latitude</strong> <strong>y</strong> <strong>Longitude</strong>): La ubicación geográfica puede afectar significativamente el precio de la vivienda.</p></li>
+<li><p>Calidad de la calefacción (<strong>Heating_QC</strong>), calidad de la cocina (<strong>Kitchen_AbvGr</strong>) y otros: Los atributos indican la calidad de características específicas de la vivienda.</p></li>
+<li><p>Tipo de vivienda (<strong>Bldg_Type</strong>) y estilo de la casa (<strong>House_Style</strong>): Estos factores pueden afectar la percepción sobre la vivienda.</p></li>
+</ol>
+<hr>
+</section>
+<section id="consideración-de-nuevas-variables" class="level2">
+<h2 class="anchored" data-anchor-id="consideración-de-nuevas-variables">Consideración de nuevas variables</h2>
+<p>Aparte de las variables antes mencionadas, se pueden calcular algunas variables derivadas o calculadas que podrían ser útiles para predecir el precio de la vivienda.</p>
+<ul>
+<li>Relación Precio por Pie Cuadrado: Calcular el precio por pie cuadrado dividiendo el precio de la vivienda por su área habitable. Esta métrica puede ser relevante en relación al precio.</li>
+</ul>
+<div class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="64">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Mean_Metros</th>
+<th data-quarto-table-cell-role="th">Median_Metros</th>
+<th data-quarto-table-cell-role="th">First_Metros</th>
+<th data-quarto-table-cell-role="th">Last_Metros</th>
+<th data-quarto-table-cell-role="th">Min_Metros</th>
+<th data-quarto-table-cell-role="th">Max_Metros</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>21.537993</td>
+<td>18.005914</td>
+<td>6.767391</td>
+<td>19.52841</td>
+<td>0.898245</td>
+<td>97.482639</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<ul>
+<li><p>Antigüedad: Calcular la edad de la vivienda en el año de venta restando el año de construcción del año de venta (Antique = Year_Sold - Year_Built).</p>
+<div class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="65">
 <div>
 
 
@@ -240,12 +336,50 @@ memory usage: 1.7+ MB</code></pre>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>23.523891</td>
-<td>15.0</td>
+<td>36.43413</td>
+<td>34.0</td>
 <td>50</td>
-<td>12</td>
-<td>-2</td>
-<td>60</td>
+<td>13</td>
+<td>-1</td>
+<td>136</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div></li>
+</ul>
+<p><em>- La antigüedad de las viviendas en el año de venta varía desde un mínimo de -1 año (lo cual es inusual) hasta un máximo de 136 años, con un valor medio de aproximadamente 36.43 meses y una mediana de 34 meses. Estos estadísticos proporcionan información sobre la distribución de la antigüedad de las viviendas en el conjunto de datos, lo que puede ser relevante para comprender la historia y la calidad de las propiedades en venta. La presencia de un valor negativo para la antigüedad podría requerir una investigación adicional o corrección en los datos.</em></p>
+<ul>
+<li>Relación Baños por Habitaciones: Determinar la relación entre el número de baños y el número de habitaciones para evaluar la comodidad de la vivienda Rooms = (Full_Bath + Half_Bath) / TotRms_AbvGrd).</li>
+</ul>
+<div class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="66">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Mean_Rooms</th>
+<th data-quarto-table-cell-role="th">Median_Rooms</th>
+<th data-quarto-table-cell-role="th">First_Rooms</th>
+<th data-quarto-table-cell-role="th">Last_Rooms</th>
+<th data-quarto-table-cell-role="th">Min_Rooms</th>
+<th data-quarto-table-cell-role="th">Max_Rooms</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1.62225</td>
+<td>2.0</td>
+<td>1.0</td>
+<td>2.111111</td>
+<td>0.0</td>
+<td>4.25</td>
 </tr>
 </tbody>
 </table>
@@ -253,57 +387,105 @@ memory usage: 1.7+ MB</code></pre>
 </div>
 </div>
 </div>
-<p>#Es de destacar que la media es de 23.52, la antigüedad promedio es de 15 meses, la antigüedad máxima es de 60 meses, aunque nos arroja un valor de -2 (podríamos considerarlo como pre-venta.</p>
-<div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> <span class="op">*</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mizani.formatters <span class="im">import</span> comma_format, dollar_format</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>ames_housing <span class="op">=</span> pd.read_csv(<span class="st">"ames.csv"</span>)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>ames_housing <span class="op">&gt;&gt;</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>ggplot(aes(x <span class="op">=</span> <span class="st">"Sale_Price"</span>)) <span class="op">+</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>geom_histogram(color <span class="op">=</span> <span class="st">"black"</span>, fill <span class="op">=</span> <span class="st">"blue"</span>, bins <span class="op">=</span> <span class="dv">30</span>) <span class="op">+</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>scale_x_continuous(labels <span class="op">=</span> comma_format()) <span class="op">+</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>scale_y_continuous(labels <span class="op">=</span> comma_format()) <span class="op">+</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>ggtitle(<span class="st">"Distribución de precio"</span>)</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="Avance%204_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>&lt;Figure Size: (640 x 480)&gt;</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ames_housing <span class="op">&gt;&gt;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  ggplot( aes( x <span class="op">=</span> <span class="st">"Neighborhood"</span>)) <span class="op">+</span> </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  geom_bar( fill<span class="op">=</span> <span class="st">"darkblue"</span>, color<span class="op">=</span> <span class="st">"black"</span>, alpha<span class="op">=</span> <span class="fl">0.9</span>) <span class="op">+</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  geom_text(</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>   aes(label<span class="op">=</span>after_stat(<span class="st">'count / sum(count) * 100'</span>), group<span class="op">=</span><span class="dv">1</span>),</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>     color <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>     stat<span class="op">=</span><span class="st">'count'</span>,</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>     va<span class="op">=</span><span class="st">'bottom'</span>,</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>     ha<span class="op">=</span><span class="st">'right'</span>,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>     format_string<span class="op">=</span><span class="st">'</span><span class="sc">{:.1f}</span><span class="st">%'</span>) <span class="op">+</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  scale_y_continuous(labels <span class="op">=</span> comma_format()) <span class="op">+</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  ggtitle(<span class="st">"Ventas por Vecindario"</span>) <span class="op">+</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  coord_flip() </span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="Avance%204_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>&lt;Figure Size: (640 x 480)&gt;</code></pre>
+<p>-<em>La variable “Rooms” muestra una amplia variabilidad en la relación entre baños y habitaciones en las viviendas del conjunto de datos. La media de alrededor de 1.62225 sugiere que, en promedio, hay más habitaciones que baños, pero los valores mínimo y máximo indican que hay casos inusuales, incluyendo viviendas con cero baños por habitación y viviendas con una alta proporción de baños en relación con las habitaciones. Esta variable puede ser relevante para evaluar la comodidad y el diseño de las viviendas en venta.</em></p>
+<ul>
+<li>Tamaño del Garaje por Coche: Calcular el tamaño promedio del garaje por coche dividiendo el área del garaje por la cantidad de coches que puede albergar (Garagexcar= Garage_Area / Garage_Cars).</li>
+</ul>
+<div class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="67">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Mean_Garagexcar</th>
+<th data-quarto-table-cell-role="th">Median_Garagexcar</th>
+<th data-quarto-table-cell-role="th">First_Garagexcar</th>
+<th data-quarto-table-cell-role="th">Last_Garagexcar</th>
+<th data-quarto-table-cell-role="th">Min_Garagexcar</th>
+<th data-quarto-table-cell-role="th">Max_Garagexcar</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>272.233574</td>
+<td>264.0</td>
+<td>264.0</td>
+<td>216.666667</td>
+<td>100.0</td>
+<td>924.0</td>
+</tr>
+</tbody>
+</table>
+
 </div>
 </div>
+</div>
+<p><em>-En cuanto a la variable “Garagexcar” muestra una variabilidad en el tamaño del garaje por coche en las viviendas del conjunto de datos. La media y la mediana indican que, en promedio, hay un espacio razonablemente amplio en el garaje para cada coche, pero hay casos donde el tamaño del garaje por coche es significativamente mayor o menor.</em></p>
+<p>________________________________________________________________________________________________</p>
 </section>
+<section id="gráficas" class="level1">
+<h1>Gráficas</h1>
+<div class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<p><img src="Avance%204_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code></code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display">
+<p><img src="Avance%204_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code></code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<p><img src="Avance%204_files/figure-html/cell-11-output-1.png" width="1152" height="576"></p>
+</div>
+</div>
+<p><em>La grafica de barras proporciona una representación visual de la distribución de viviendas en diferentes vecindarios, lo que puede ser útil para comprender mejor la distribución.</em></p>
+<div class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<p><img src="Avance%204_files/figure-html/cell-12-output-1.png" width="1152" height="576"></p>
+</div>
+</div>
+<p><em>Este gráfico te permite explorar cómo varían los precios por metro cuadrado en diferentes vecindarios, lo que permite tomar decisiones relacionadas con el área de la vivienda.</em></p>
+</section>
+<section id="regresión-lineal" class="level1">
+<h1>Regresión Lineal</h1>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>ames_housing <span class="op">=</span> pd.read_csv(<span class="st">"ames.csv"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> ames_housing[[<span class="st">'Year_Built'</span>, <span class="st">'Lot_Frontage'</span>]]</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>target <span class="op">=</span> ames_housing[<span class="st">'Sale_Price'</span>]</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(features, target, test_size<span class="op">=</span><span class="fl">0.4</span>, random_state<span class="op">=</span><span class="dv">4321</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression()</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>mse <span class="op">=</span> mean_squared_error(y_test, y_pred)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Error cuadrático medio:"</span>, mse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error cuadrático medio: 4281033287.061947</code></pre>
+</div>
+</div>
 </section>
 
 </main>
